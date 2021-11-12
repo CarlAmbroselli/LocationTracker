@@ -13,7 +13,6 @@ struct Story: Hashable, Codable, Identifiable {
     var timestamp: Date
     
     var id: String {
-        var components = Calendar.current.dateComponents([.year, .month, .day], from: timestamp)
         return "\(timestamp)\(longitude)\(latitude)"
     }
     

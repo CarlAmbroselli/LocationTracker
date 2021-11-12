@@ -22,7 +22,7 @@ struct PersistenceController {
         })
     }
     
-    func add(location: (longitude: Double, latitude: Double)) {
+    func add(location: LocationPublisher.Output) {
         let newLocation = Location(context: container.viewContext)
         let now = Date()
         
@@ -32,7 +32,13 @@ struct PersistenceController {
         newLocation.timestamp = now
         newLocation.longitude = location.longitude
         newLocation.latitude = location.latitude
+        newLocation.altitude = location.altitude
         newLocation.date = formatter.string(from: now)
+        if (location.floor != nil) {
+            newLocation.floor = location.floor!
+        }
+        newLocation.horizontalAccuracy = location.horizontalAccuracy
+        newLocation.verticalAccuracy = location.verticalAccuracy
         
         save()
     }

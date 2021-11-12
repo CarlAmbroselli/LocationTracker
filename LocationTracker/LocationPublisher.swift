@@ -9,7 +9,7 @@ import Foundation
 
 class LocationPublisher: NSObject {
     
-    typealias Output = (longitude: Double, latitude: Double)
+    typealias Output = (longitude: Double, latitude: Double, altitude: Double, floor: Int16?, horizontalAccuracy: Double, verticalAccuracy: Double)
     typealias Failure = Never
     
     private let wrapped = PassthroughSubject<(Output), Failure>()
@@ -32,9 +32,20 @@ class LocationPublisher: NSObject {
 
 extension LocationPublisher: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        Swift.print("Locations received", location)
-        wrapped.send((longitude: location.coordinate.longitude, latitude: location.coordinate.latitude))
+        Swift.print("Locations received", locations)
+        locations.forEach { location in
+            var floor: Int16?
+            if (location.floor != nil) {
+                floor = Int16(location.floor!.level)
+            }
+            wrapped.send((
+                longitude: location.coordinate.longitude,
+                latitude: location.coordinate.latitude,
+                altitude: location.altitude,
+                floor: floor,
+                horizontalAccuracy: location.horizontalAccuracy,
+                verticalAccuracy: location.verticalAccuracy))
+        }
     }
 }
 

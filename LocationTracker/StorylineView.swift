@@ -26,7 +26,7 @@ struct StorylineView: View {
                     }
                 }
             }
-            .navigationTitle("Landmarks")
+            .navigationTitle("Location History")
         }
     }
 }
