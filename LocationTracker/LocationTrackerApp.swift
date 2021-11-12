@@ -17,7 +17,7 @@ struct LocationTrackerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            StorylineView()
                 .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
         }
     }

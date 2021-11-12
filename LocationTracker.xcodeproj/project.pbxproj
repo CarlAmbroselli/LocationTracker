@@ -15,6 +15,9 @@
 		766F200E2653AE6A00B89928 /* LocationTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 766F200C2653AE6A00B89928 /* LocationTracker.xcdatamodeld */; };
 		766F20172653AEAC00B89928 /* LocationPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766F20162653AEAC00B89928 /* LocationPublisher.swift */; };
 		766F20222653C61D00B89928 /* CLLocationCoordinate2D+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766F20212653C61D00B89928 /* CLLocationCoordinate2D+Equatable.swift */; };
+		C39452AC273D756400697F84 /* StorylineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452AB273D756400697F84 /* StorylineView.swift */; };
+		C39452AF273D76F800697F84 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452AE273D76F800697F84 /* Story.swift */; };
+		C39452B1273D791A00697F84 /* StoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452B0273D791A00697F84 /* StoryRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		766F200F2653AE6A00B89928 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		766F20162653AEAC00B89928 /* LocationPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPublisher.swift; sourceTree = "<group>"; };
 		766F20212653C61D00B89928 /* CLLocationCoordinate2D+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Equatable.swift"; sourceTree = "<group>"; };
+		C39452AB273D756400697F84 /* StorylineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorylineView.swift; sourceTree = "<group>"; };
+		C39452AE273D76F800697F84 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
+		C39452B0273D791A00697F84 /* StoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +66,10 @@
 		766F20002653AE6900B89928 /* LocationTracker */ = {
 			isa = PBXGroup;
 			children = (
+				C39452AD273D76DD00697F84 /* Model */,
 				766F20012653AE6900B89928 /* LocationTrackerApp.swift */,
 				766F20032653AE6900B89928 /* ContentView.swift */,
+				C39452AB273D756400697F84 /* StorylineView.swift */,
 				766F20162653AEAC00B89928 /* LocationPublisher.swift */,
 				766F200A2653AE6A00B89928 /* PersistenceController.swift */,
 				766F200F2653AE6A00B89928 /* Info.plist */,
@@ -79,6 +87,15 @@
 				766F20082653AE6A00B89928 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C39452AD273D76DD00697F84 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C39452AE273D76F800697F84 /* Story.swift */,
+				C39452B0273D791A00697F84 /* StoryRow.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,10 +169,13 @@
 			files = (
 				766F200B2653AE6A00B89928 /* PersistenceController.swift in Sources */,
 				766F200E2653AE6A00B89928 /* LocationTracker.xcdatamodeld in Sources */,
+				C39452AC273D756400697F84 /* StorylineView.swift in Sources */,
 				766F20042653AE6900B89928 /* ContentView.swift in Sources */,
 				766F20022653AE6900B89928 /* LocationTrackerApp.swift in Sources */,
 				766F20222653C61D00B89928 /* CLLocationCoordinate2D+Equatable.swift in Sources */,
 				766F20172653AEAC00B89928 /* LocationPublisher.swift in Sources */,
+				C39452B1273D791A00697F84 /* StoryRow.swift in Sources */,
+				C39452AF273D76F800697F84 /* Story.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

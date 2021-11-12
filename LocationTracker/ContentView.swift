@@ -10,12 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @Environment(\.managedObjectContext) private var viewContext
-    
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Location.timestamp, ascending: true)],
-        animation: .default)
-    private var locations: FetchedResults<Location>
+    var locations: SectionedFetchResults<String, Location>.Element
     
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 52.520008, longitude: 13.404954),
