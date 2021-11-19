@@ -21,10 +21,9 @@
 		C39452BA273E4EF000697F84 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452B9273E4EF000697F84 /* MapView.swift */; };
 		C39452C72746A54B00697F84 /* SwiftyDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = C39452C62746A54B00697F84 /* SwiftyDropbox */; };
 		C39452CB2746AAE200697F84 /* DropboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452CA2746AAE200697F84 /* DropboxView.swift */; };
-		C39452D32746BE0400697F84 /* DropboxModelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452D02746BE0300697F84 /* DropboxModelError.swift */; };
-		C39452D42746BE0400697F84 /* DropboxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452D12746BE0300697F84 /* DropboxModel.swift */; };
-		C39452D52746BE0400697F84 /* DropboxItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452D22746BE0300697F84 /* DropboxItem.swift */; };
 		C39452D92746BEAB00697F84 /* DropboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452D82746BEAB00697F84 /* DropboxViewModel.swift */; };
+		C39452DB274828A100697F84 /* DropboxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452DA274828A100697F84 /* DropboxModel.swift */; };
+		C3A9582F274846BB004BCDEA /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A9582E274846BB004BCDEA /* ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,10 +42,9 @@
 		C39452B0273D791A00697F84 /* StoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryRow.swift; sourceTree = "<group>"; };
 		C39452B9273E4EF000697F84 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		C39452CA2746AAE200697F84 /* DropboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxView.swift; sourceTree = "<group>"; };
-		C39452D02746BE0300697F84 /* DropboxModelError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropboxModelError.swift; sourceTree = "<group>"; };
-		C39452D12746BE0300697F84 /* DropboxModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropboxModel.swift; path = "../../../../../../Downloads/MyFilesExplorer-a7314586d7796c978e758f444d34b71f6c63daa9/Shared/Model/DropboxModel.swift"; sourceTree = "<group>"; };
-		C39452D22746BE0300697F84 /* DropboxItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropboxItem.swift; sourceTree = "<group>"; };
 		C39452D82746BEAB00697F84 /* DropboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxViewModel.swift; sourceTree = "<group>"; };
+		C39452DA274828A100697F84 /* DropboxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxModel.swift; sourceTree = "<group>"; };
+		C3A9582E274846BB004BCDEA /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +86,7 @@
 				C39452CA2746AAE200697F84 /* DropboxView.swift */,
 				766F20162653AEAC00B89928 /* LocationPublisher.swift */,
 				766F200A2653AE6A00B89928 /* PersistenceController.swift */,
+				C3A9582E274846BB004BCDEA /* ViewModel.swift */,
 				766F200F2653AE6A00B89928 /* Info.plist */,
 				766F200C2653AE6A00B89928 /* LocationTracker.xcdatamodeld */,
 				766F20052653AE6A00B89928 /* Assets.xcassets */,
@@ -117,9 +116,7 @@
 		C39452B8273E4ED700697F84 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				C39452D22746BE0300697F84 /* DropboxItem.swift */,
-				C39452D12746BE0300697F84 /* DropboxModel.swift */,
-				C39452D02746BE0300697F84 /* DropboxModelError.swift */,
+				C39452DA274828A100697F84 /* DropboxModel.swift */,
 				C39452D82746BEAB00697F84 /* DropboxViewModel.swift */,
 				C39452B9273E4EF000697F84 /* MapView.swift */,
 			);
@@ -207,13 +204,12 @@
 				766F20042653AE6900B89928 /* ContentView.swift in Sources */,
 				766F20022653AE6900B89928 /* LocationTrackerApp.swift in Sources */,
 				C39452CB2746AAE200697F84 /* DropboxView.swift in Sources */,
+				C3A9582F274846BB004BCDEA /* ViewModel.swift in Sources */,
 				766F20222653C61D00B89928 /* CLLocationCoordinate2D+Equatable.swift in Sources */,
+				C39452DB274828A100697F84 /* DropboxModel.swift in Sources */,
 				C39452D92746BEAB00697F84 /* DropboxViewModel.swift in Sources */,
-				C39452D42746BE0400697F84 /* DropboxModel.swift in Sources */,
 				766F20172653AEAC00B89928 /* LocationPublisher.swift in Sources */,
-				C39452D32746BE0400697F84 /* DropboxModelError.swift in Sources */,
 				C39452BA273E4EF000697F84 /* MapView.swift in Sources */,
-				C39452D52746BE0400697F84 /* DropboxItem.swift in Sources */,
 				C39452B1273D791A00697F84 /* StoryRow.swift in Sources */,
 				C39452AF273D76F800697F84 /* Story.swift in Sources */,
 			);

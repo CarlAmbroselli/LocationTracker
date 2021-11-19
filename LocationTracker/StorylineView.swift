@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct StorylineView: View {
+    @ObservedObject var viewModel: ViewModel
     @Environment(\.managedObjectContext) private var viewContext
     
     @SectionedFetchRequest<String, Location>(
@@ -29,7 +30,7 @@ struct StorylineView: View {
             .navigationTitle("Location History")
             .toolbar {
                 NavigationLink {
-                    DropboxView()
+                    DropboxView(viewModel: viewModel.dropboxViewModel)
                 } label: {
                     Text("Sync")
                 }
@@ -40,6 +41,6 @@ struct StorylineView: View {
 
 struct StorylineView_Previews: PreviewProvider {
     static var previews: some View {
-        StorylineView()
+        StorylineView(viewModel: ViewModel())
     }
 }
