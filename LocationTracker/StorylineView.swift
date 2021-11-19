@@ -27,6 +27,13 @@ struct StorylineView: View {
                 }
             }
             .navigationTitle("Location History")
+            .toolbar {
+                NavigationLink {
+                    DropboxView()
+                } label: {
+                    Text("Sync")
+                }
+            }
         }
     }
 }

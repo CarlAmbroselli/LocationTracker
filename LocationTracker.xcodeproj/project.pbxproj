@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,12 @@
 		C39452AF273D76F800697F84 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452AE273D76F800697F84 /* Story.swift */; };
 		C39452B1273D791A00697F84 /* StoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452B0273D791A00697F84 /* StoryRow.swift */; };
 		C39452BA273E4EF000697F84 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452B9273E4EF000697F84 /* MapView.swift */; };
+		C39452C72746A54B00697F84 /* SwiftyDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = C39452C62746A54B00697F84 /* SwiftyDropbox */; };
+		C39452CB2746AAE200697F84 /* DropboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452CA2746AAE200697F84 /* DropboxView.swift */; };
+		C39452D32746BE0400697F84 /* DropboxModelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452D02746BE0300697F84 /* DropboxModelError.swift */; };
+		C39452D42746BE0400697F84 /* DropboxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452D12746BE0300697F84 /* DropboxModel.swift */; };
+		C39452D52746BE0400697F84 /* DropboxItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452D22746BE0300697F84 /* DropboxItem.swift */; };
+		C39452D92746BEAB00697F84 /* DropboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452D82746BEAB00697F84 /* DropboxViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +42,11 @@
 		C39452AE273D76F800697F84 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		C39452B0273D791A00697F84 /* StoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryRow.swift; sourceTree = "<group>"; };
 		C39452B9273E4EF000697F84 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		C39452CA2746AAE200697F84 /* DropboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxView.swift; sourceTree = "<group>"; };
+		C39452D02746BE0300697F84 /* DropboxModelError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropboxModelError.swift; sourceTree = "<group>"; };
+		C39452D12746BE0300697F84 /* DropboxModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DropboxModel.swift; path = "../../../../../../Downloads/MyFilesExplorer-a7314586d7796c978e758f444d34b71f6c63daa9/Shared/Model/DropboxModel.swift"; sourceTree = "<group>"; };
+		C39452D22746BE0300697F84 /* DropboxItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropboxItem.swift; sourceTree = "<group>"; };
+		C39452D82746BEAB00697F84 /* DropboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C39452C72746A54B00697F84 /* SwiftyDropbox in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +85,7 @@
 				766F20012653AE6900B89928 /* LocationTrackerApp.swift */,
 				766F20032653AE6900B89928 /* ContentView.swift */,
 				C39452AB273D756400697F84 /* StorylineView.swift */,
+				C39452CA2746AAE200697F84 /* DropboxView.swift */,
 				766F20162653AEAC00B89928 /* LocationPublisher.swift */,
 				766F200A2653AE6A00B89928 /* PersistenceController.swift */,
 				766F200F2653AE6A00B89928 /* Info.plist */,
@@ -104,6 +117,10 @@
 		C39452B8273E4ED700697F84 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				C39452D22746BE0300697F84 /* DropboxItem.swift */,
+				C39452D12746BE0300697F84 /* DropboxModel.swift */,
+				C39452D02746BE0300697F84 /* DropboxModelError.swift */,
+				C39452D82746BEAB00697F84 /* DropboxViewModel.swift */,
 				C39452B9273E4EF000697F84 /* MapView.swift */,
 			);
 			path = Helpers;
@@ -125,6 +142,9 @@
 			dependencies = (
 			);
 			name = LocationTracker;
+			packageProductDependencies = (
+				C39452C62746A54B00697F84 /* SwiftyDropbox */,
+			);
 			productName = LocationTracker;
 			productReference = 766F1FFE2653AE6900B89928 /* LocationTracker.app */;
 			productType = "com.apple.product-type.application";
@@ -152,6 +172,9 @@
 				Base,
 			);
 			mainGroup = 766F1FF52653AE6900B89928;
+			packageReferences = (
+				C39452C52746A54B00697F84 /* XCRemoteSwiftPackageReference "SwiftyDropbox" */,
+			);
 			productRefGroup = 766F1FFF2653AE6900B89928 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -183,9 +206,14 @@
 				C39452AC273D756400697F84 /* StorylineView.swift in Sources */,
 				766F20042653AE6900B89928 /* ContentView.swift in Sources */,
 				766F20022653AE6900B89928 /* LocationTrackerApp.swift in Sources */,
+				C39452CB2746AAE200697F84 /* DropboxView.swift in Sources */,
 				766F20222653C61D00B89928 /* CLLocationCoordinate2D+Equatable.swift in Sources */,
+				C39452D92746BEAB00697F84 /* DropboxViewModel.swift in Sources */,
+				C39452D42746BE0400697F84 /* DropboxModel.swift in Sources */,
 				766F20172653AEAC00B89928 /* LocationPublisher.swift in Sources */,
+				C39452D32746BE0400697F84 /* DropboxModelError.swift in Sources */,
 				C39452BA273E4EF000697F84 /* MapView.swift in Sources */,
+				C39452D52746BE0400697F84 /* DropboxItem.swift in Sources */,
 				C39452B1273D791A00697F84 /* StoryRow.swift in Sources */,
 				C39452AF273D76F800697F84 /* Story.swift in Sources */,
 			);
@@ -376,6 +404,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C39452C52746A54B00697F84 /* XCRemoteSwiftPackageReference "SwiftyDropbox" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dropbox/SwiftyDropbox.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C39452C62746A54B00697F84 /* SwiftyDropbox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C39452C52746A54B00697F84 /* XCRemoteSwiftPackageReference "SwiftyDropbox" */;
+			productName = SwiftyDropbox;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		766F200C2653AE6A00B89928 /* LocationTracker.xcdatamodeld */ = {
