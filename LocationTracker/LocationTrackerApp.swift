@@ -9,7 +9,6 @@ import SwiftUI
 @main
 struct LocationTrackerApp: App {
     let locationPublisher = LocationPublisher()
-    let model = ViewModel()
     var cancellables = [AnyCancellable]()
     
     init() {
@@ -18,7 +17,7 @@ struct LocationTrackerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            StorylineView(viewModel: model)
+            StorylineView()
                 .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
         }
     }

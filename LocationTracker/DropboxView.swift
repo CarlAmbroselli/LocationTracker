@@ -10,7 +10,7 @@ import SwiftUI
 import SwiftyDropbox
 
 struct DropboxView : View {
-    @ObservedObject var viewModel: DropboxViewModel
+    @ObservedObject var viewModel = DropboxViewModel()
     
     var body : some View {
         VStack {
