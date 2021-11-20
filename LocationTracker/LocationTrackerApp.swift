@@ -10,6 +10,7 @@ import SwiftUI
 struct LocationTrackerApp: App {
     let locationPublisher = LocationPublisher()
     var cancellables = [AnyCancellable]()
+    let model = ViewModel()
     
     init() {
         locationPublisher.sink(receiveValue: PersistenceController.shared.add).store(in: &cancellables)
@@ -17,7 +18,7 @@ struct LocationTrackerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            StorylineView()
+            StorylineView(viewModel: model)
                 .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
         }
     }

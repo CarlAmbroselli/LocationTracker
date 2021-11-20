@@ -34,7 +34,7 @@ class DropboxModel {
                 self.state = "Loaded"
                 print(result)
             } else {
-                print(error)
+                print(error ?? "no error")
             }
         }
     }

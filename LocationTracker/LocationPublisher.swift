@@ -32,7 +32,7 @@ class LocationPublisher: NSObject {
 
 extension LocationPublisher: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // Swift.print("Locations received", locations)
+         Swift.print("Locations received", locations)
         locations.forEach { location in
             var floor: Int16?
             if (location.floor != nil) {

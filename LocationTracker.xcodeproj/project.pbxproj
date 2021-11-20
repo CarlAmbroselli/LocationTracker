@@ -23,6 +23,7 @@
 		C39452CB2746AAE200697F84 /* DropboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452CA2746AAE200697F84 /* DropboxView.swift */; };
 		C39452D92746BEAB00697F84 /* DropboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452D82746BEAB00697F84 /* DropboxViewModel.swift */; };
 		C39452DB274828A100697F84 /* DropboxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452DA274828A100697F84 /* DropboxModel.swift */; };
+		C3A958312748DD52004BCDEA /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A958302748DD52004BCDEA /* ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		C39452CA2746AAE200697F84 /* DropboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxView.swift; sourceTree = "<group>"; };
 		C39452D82746BEAB00697F84 /* DropboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxViewModel.swift; sourceTree = "<group>"; };
 		C39452DA274828A100697F84 /* DropboxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxModel.swift; sourceTree = "<group>"; };
+		C3A958302748DD52004BCDEA /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				C39452B8273E4ED700697F84 /* Helpers */,
 				C39452AD273D76DD00697F84 /* Model */,
 				766F20012653AE6900B89928 /* LocationTrackerApp.swift */,
+				C3A958302748DD52004BCDEA /* ViewModel.swift */,
 				766F20032653AE6900B89928 /* ContentView.swift */,
 				C39452AB273D756400697F84 /* StorylineView.swift */,
 				C39452CA2746AAE200697F84 /* DropboxView.swift */,
@@ -201,6 +204,7 @@
 				766F20042653AE6900B89928 /* ContentView.swift in Sources */,
 				766F20022653AE6900B89928 /* LocationTrackerApp.swift in Sources */,
 				C39452CB2746AAE200697F84 /* DropboxView.swift in Sources */,
+				C3A958312748DD52004BCDEA /* ViewModel.swift in Sources */,
 				766F20222653C61D00B89928 /* CLLocationCoordinate2D+Equatable.swift in Sources */,
 				C39452DB274828A100697F84 /* DropboxModel.swift in Sources */,
 				C39452D92746BEAB00697F84 /* DropboxViewModel.swift in Sources */,

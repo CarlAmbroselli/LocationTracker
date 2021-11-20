@@ -10,7 +10,7 @@ import SwiftUI
 import SwiftyDropbox
 
 struct DropboxView : View {
-    @ObservedObject var viewModel = DropboxViewModel()
+    @ObservedObject var viewModel: DropboxViewModel
     
     var body : some View {
         VStack {
@@ -19,15 +19,12 @@ struct DropboxView : View {
         }
         .onAppear() {
             if DropboxClientsManager.authorizedClient == nil {
-                print("NOT AUTHENTICATED")
                 viewModel.showAuthenticateDropbox = true
             } else {
-                print("YES AUTHENTICATED")
                 try? viewModel.updateDropboxState()
             }
         }
         .onOpenURL { url in
-            print("Dropbox auth url \(url)")
             DropboxClientsManager.handleRedirectURL(url, completion: { result in
                 try? viewModel.updateDropboxState()
             })

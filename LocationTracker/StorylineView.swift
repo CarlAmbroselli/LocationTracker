@@ -9,6 +9,7 @@ import SwiftUI
 
 struct StorylineView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    let viewModel: ViewModel
     
     @SectionedFetchRequest<String, Location>(
         sectionIdentifier: \.date!,
@@ -29,7 +30,7 @@ struct StorylineView: View {
             .navigationTitle("Location History")
             .toolbar {
                 NavigationLink {
-                    DropboxView()
+                    DropboxView(viewModel: ViewModel.dropboxViewModel)
                 } label: {
                     Text("Sync")
                 }
@@ -40,6 +41,6 @@ struct StorylineView: View {
 
 struct StorylineView_Previews: PreviewProvider {
     static var previews: some View {
-        StorylineView()
+        StorylineView(viewModel: ViewModel())
     }
 }
