@@ -15,7 +15,7 @@ struct DropboxView : View {
     var body : some View {
         VStack {
             Text(viewModel.status)
-            DropboxViewController(isShown: $viewModel.showAuthenticateDropbox)
+            DropboxViewController(isShown: $viewModel.showAuthenticateDropbox, viewModel: viewModel)
         }
         .onAppear() {
             if DropboxClientsManager.authorizedClient == nil {
@@ -25,7 +25,10 @@ struct DropboxView : View {
             }
         }
         .onOpenURL { url in
+            print("Received url: \(url)")
             DropboxClientsManager.handleRedirectURL(url, completion: { result in
+                print("Result:")
+                print(result)
                 try? viewModel.updateDropboxState()
             })
         }
@@ -36,23 +39,11 @@ struct DropboxViewController: UIViewControllerRepresentable {
     typealias UIViewControllerType = UIViewController
     
     @Binding var isShown : Bool
+    var viewModel: DropboxViewModel
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
         if isShown {
-            let scopeRequest = ScopeRequest(scopeType: .user, scopes: [
-                "account_info.read",
-                "files.content.read",
-                "files.metadata.read"
-            ], includeGrantedScopes: false)
-            DropboxClientsManager.authorizeFromControllerV2(
-                UIApplication.shared,
-                controller: uiViewController,
-                loadingStatusDelegate: nil,
-                openURL: { (url: URL) -> Void in
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                },
-                scopeRequest: scopeRequest
-            )
+            viewModel.authenticate(controller: uiViewController)
         }
     }
 
