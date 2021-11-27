@@ -28,7 +28,6 @@ struct StorylineView: View {
                 }
             }
             .navigationTitle("Location History")
-            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 NavigationLink {
                     DropboxView(viewModel: ViewModel.dropboxViewModel)

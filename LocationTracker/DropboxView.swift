@@ -25,6 +25,7 @@ struct DropboxView : View {
                 viewModel.uploadLocations()
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear() {
             if DropboxClientsManager.authorizedClient == nil {
                 viewModel.showAuthenticateDropbox = true
