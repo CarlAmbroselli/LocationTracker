@@ -14,8 +14,16 @@ struct DropboxView : View {
     
     var body : some View {
         VStack {
-            Text(viewModel.status)
+            Text(viewModel.authenticationStatus)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(viewModel.isAuthenticated ? .green : .orange)
+            Spacer()
             DropboxViewController(isShown: $viewModel.showAuthenticateDropbox, viewModel: viewModel)
+            Button("Sync Locations") {
+                viewModel.uploadLocations()
+            }
         }
         .onAppear() {
             if DropboxClientsManager.authorizedClient == nil {
@@ -25,10 +33,7 @@ struct DropboxView : View {
             }
         }
         .onOpenURL { url in
-            print("Received url: \(url)")
             DropboxClientsManager.handleRedirectURL(url, completion: { result in
-                print("Result:")
-                print(result)
                 try? viewModel.updateDropboxState()
             })
         }
@@ -49,5 +54,11 @@ struct DropboxViewController: UIViewControllerRepresentable {
 
     func makeUIViewController(context _: Self.Context) -> UIViewController {
         return UIViewController()
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        DropboxView(viewModel: ViewModel.dropboxViewModel)
     }
 }

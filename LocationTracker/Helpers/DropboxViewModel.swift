@@ -9,13 +9,17 @@ import SwiftyDropbox
 class DropboxViewModel: ObservableObject {
     
     @Published var showAuthenticateDropbox = DropboxModel.shared.needsAuth
-    @Published var status = DropboxModel.shared.state
+    @Published var authenticationStatus = "Loading..."
+    @Published var isAuthenticated = false
     private var authenticationTriggered = false
     
     private let dropboxModel = DropboxModel.shared
     
     func updateDropboxState() throws {
-        dropboxModel.updateDropboxState()
+        dropboxModel.updateDropboxState() { isAuthenticated, authenticationStatus in
+            self.isAuthenticated = isAuthenticated
+            self.authenticationStatus = authenticationStatus
+        }
     }
     
     func authenticate(controller: UIViewController?) {
@@ -37,5 +41,9 @@ class DropboxViewModel: ObservableObject {
                 scopeRequest: scopeRequest
             )
         }
+    }
+    
+    func uploadLocations() {
+        dropboxModel.uploadLocations()
     }
 }

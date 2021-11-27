@@ -28,6 +28,7 @@ struct StorylineView: View {
                 }
             }
             .navigationTitle("Location History")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 NavigationLink {
                     DropboxView(viewModel: ViewModel.dropboxViewModel)
@@ -35,7 +36,7 @@ struct StorylineView: View {
                     Text("Sync")
                 }
             }
-        }
+        }.navigationViewStyle(.stack)
     }
 }
 

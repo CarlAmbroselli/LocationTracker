@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftyDropbox
+import CoreData
 
 class DropboxModel {
     
@@ -22,20 +23,45 @@ class DropboxModel {
         return DropboxClientsManager.authorizedClient == nil
     }
     
-    func updateDropboxState() {
+    func updateDropboxState(resultHandler: @escaping (Bool, String) -> Void) {
         print("updateDropboxState")
         guard let client = DropboxClientsManager.authorizedClient else {
             print("failed to init client!")
             state = "Failed to initialize client"
             return
         }
-        client.files.listFolder(path: "").response { response, error in
-            if let result = response {
-                self.state = "Loaded"
-                print(result)
+        client.users.getCurrentAccount().response { response, error in
+            if let account = response {
+                resultHandler(true, "Authenticated \(account.name.givenName)")
             } else {
-                print(error ?? "no error")
+                resultHandler(false, error?.description ?? "no error")
             }
+        }
+    }
+    
+    func uploadLocations() {
+        let fetchRequest = Location.fetchRequest() as NSFetchRequest<Location>
+        
+        let asyncFetch = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) {
+            [weak self] result in
+
+            guard let locations = result.finalResult else {
+              print("Failed to fetch locations")
+              return
+            }
+            
+            print("Locations to update")
+            print(locations.map({ location in
+                return location.longitude
+            }).count)
+            
+        }
+        
+        do {
+            let backgroundContext = PersistenceController.shared.container.newBackgroundContext()
+            try backgroundContext.execute(asyncFetch)
+        } catch let error {
+          // handle error
         }
     }
     
