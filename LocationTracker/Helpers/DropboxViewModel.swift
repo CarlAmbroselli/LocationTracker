@@ -28,6 +28,7 @@ class DropboxViewModel: ObservableObject {
             let scopeRequest = ScopeRequest(scopeType: .user, scopes: [
                 "account_info.read",
                 "files.content.read",
+                "files.content.write",
                 "files.metadata.read"
             ], includeGrantedScopes: false)
             DropboxClientsManager.authorizeFromControllerV2(
@@ -41,6 +42,10 @@ class DropboxViewModel: ObservableObject {
                 scopeRequest: scopeRequest
             )
         }
+    }
+    
+    func logout() {
+        DropboxClientsManager.unlinkClients()
     }
     
     func uploadLocations() {

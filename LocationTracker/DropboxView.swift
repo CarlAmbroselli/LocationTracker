@@ -21,9 +21,19 @@ struct DropboxView : View {
                 .background(viewModel.isAuthenticated ? .green : .orange)
             Spacer()
             DropboxViewController(isShown: $viewModel.showAuthenticateDropbox, viewModel: viewModel)
-            Button("Sync Locations") {
-                viewModel.uploadLocations()
+            if (viewModel.isAuthenticated) {
+                
+                Button("Sync Locations") {
+                    viewModel.uploadLocations()
+                }
+                
+                Spacer()
+                
+                Button("Logout Dropbox") {
+                    viewModel.logout()
+                }
             }
+            Spacer()
         }
         .navigationBarTitleDisplayMode(.inline)
         .onAppear() {

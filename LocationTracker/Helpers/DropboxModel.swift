@@ -40,29 +40,82 @@ class DropboxModel {
     }
     
     func uploadLocations() {
+        let timestampSort = NSSortDescriptor(key:"timestamp", ascending:true)
         let fetchRequest = Location.fetchRequest() as NSFetchRequest<Location>
+        fetchRequest.sortDescriptors = [timestampSort]
         
-        let asyncFetch = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) {
-            [weak self] result in
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        
+        let asyncFetch = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { result in
 
             guard let locations = result.finalResult else {
               print("Failed to fetch locations")
               return
             }
             
-            print("Locations to update")
-            print(locations.map({ location in
-                return location.longitude
-            }).count)
+            var lastDate = ""
+            var currentCsv = ""
+            let fields = ["date", "timestamp", "longitude", "latitude", "altitude", "floor", "horizontalAccuracy", "verticalAccuracy"]
+            var results: [Bool] = []
+        
+            locations.forEach({ location in
+                guard let thisDate = location.date else {
+                    return
+                }
+                if (lastDate != thisDate) {
+                    if (!currentCsv.isEmpty) {
+                        self.storeDay(csv: currentCsv, date: lastDate) { result in
+                            results.append(result)
+                        }
+                    }
+                    lastDate = thisDate
+                    currentCsv = fields.joined(separator: ";")
+                }
+                currentCsv += "\n" + fields.map({ field in
+                    if (field == "timestamp") {
+                        guard let timestamp = location.timestamp else {
+                            return ""
+                        }
+                        return String(describing: timestamp.timeIntervalSince1970)
+                    } else {
+                        return "\(location.value(forKey: field) ?? "")"
+                    }
+                }).joined(separator: ";")
+            })
             
         }
         
         do {
             let backgroundContext = PersistenceController.shared.container.newBackgroundContext()
             try backgroundContext.execute(asyncFetch)
-        } catch let error {
+        } catch _ {
           // handle error
         }
+    }
+    
+    func storeDay(csv: String, date: String, completionHandler: @escaping (Bool) -> Void) {
+        let fileData = csv.data(using: String.Encoding.utf8, allowLossyConversion: false)!
+        
+        guard let client = DropboxClientsManager.authorizedClient else {
+            print("client not initialized")
+            return
+        }
+
+        client.files.upload(path: "/data/locations/location-tracker/\(date).csv", input: fileData)
+            .response { response, error in
+                if let response = response {
+                    completionHandler(true)
+                    print(response)
+                } else if let error = error {
+                    completionHandler(false)
+                    print(error)
+                }
+            }
+            .progress { progressData in
+                print(progressData)
+            }
     }
     
 }
