@@ -23,14 +23,42 @@ struct DropboxView : View {
             DropboxViewController(isShown: $viewModel.showAuthenticateDropbox, viewModel: viewModel)
             if (viewModel.isAuthenticated) {
                 
-                Button("Sync Locations") {
-                    viewModel.uploadLocations()
-                }
+                Text(viewModel.syncStatus)
                 
-                Spacer()
+                Spacer().frame(height: 50)
                 
-                Button("Logout Dropbox") {
-                    viewModel.logout()
+                HStack {
+                    Spacer()
+                
+                    Button(action: {
+                        viewModel.uploadLocations()
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.triangle.2.circlepath")
+                            Text("Sync Locations")
+                        }
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        viewModel.uploadLocations()
+                    }) {
+                        HStack {
+                            Image(systemName: "lock")
+                            Text("Logout Dropbox")
+                        }
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(Color.gray)
+                        .cornerRadius(10)
+                    }
+                    
+                    Spacer()
                 }
             }
             Spacer()

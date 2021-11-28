@@ -39,7 +39,7 @@ class DropboxModel {
         }
     }
     
-    func uploadLocations() {
+    func uploadLocations(updateProgress: @escaping (_ all: Int, _ uploaded: Int) -> Void) {
         let timestampSort = NSSortDescriptor(key:"timestamp", ascending:true)
         let fetchRequest = Location.fetchRequest() as NSFetchRequest<Location>
         fetchRequest.sortDescriptors = [timestampSort]
@@ -55,20 +55,29 @@ class DropboxModel {
               return
             }
             
+            var uploaded = 0
+            var total = 0
             var lastDate = ""
             var currentCsv = ""
             let fields = ["date", "timestamp", "longitude", "latitude", "altitude", "floor", "horizontalAccuracy", "verticalAccuracy"]
             var results: [Bool] = []
+            var delay = 0.0
         
             locations.forEach({ location in
                 guard let thisDate = location.date else {
                     return
                 }
                 if (lastDate != thisDate) {
+                    total += 1
                     if (!currentCsv.isEmpty) {
-                        self.storeDay(csv: currentCsv, date: lastDate) { result in
-                            results.append(result)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                            self.storeDay(csv: currentCsv, date: lastDate) { result in
+                                results.append(result)
+                                uploaded += 1
+                                updateProgress(total, uploaded)
+                            }
                         }
+                        delay += 1
                     }
                     lastDate = thisDate
                     currentCsv = fields.joined(separator: ";")
@@ -78,7 +87,7 @@ class DropboxModel {
                         guard let timestamp = location.timestamp else {
                             return ""
                         }
-                        return String(describing: timestamp.timeIntervalSince1970)
+                        return "\(Int(timestamp.timeIntervalSince1970))"
                     } else {
                         return "\(location.value(forKey: field) ?? "")"
                     }
