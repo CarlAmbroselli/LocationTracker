@@ -67,8 +67,9 @@ class DropboxModel {
                     if (!currentCsv.isEmpty) {
                         total += 1
                         let dateToUpload = lastDate
+                        let csvToUpload = currentCsv
                         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                            self.storeDay(csv: currentCsv, date: dateToUpload) { result in
+                            self.storeDay(csv: csvToUpload, date: dateToUpload) { result in
                                 results.append(File(status: result, path: dateToUpload))
                                 uploaded += 1
                                 updateProgress(total, uploaded, results)
