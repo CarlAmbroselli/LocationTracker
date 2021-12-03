@@ -74,7 +74,7 @@ class DropboxModel {
                                 updateProgress(total, uploaded, results)
                             }
                         }
-                        delay += 0.5
+                        delay += 1
                     }
                     lastDate = thisDate
                     currentCsv = fields.joined(separator: ";")
