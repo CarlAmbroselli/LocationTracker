@@ -19,10 +19,6 @@ class DropboxModel {
     
     var state: String = "Uninitialized"
     
-    var needsAuth: Bool {
-        return DropboxClientsManager.authorizedClient == nil
-    }
-    
     func updateDropboxState(resultHandler: @escaping (Bool, String) -> Void) {
         print("updateDropboxState")
         guard let client = DropboxClientsManager.authorizedClient else {
@@ -39,7 +35,7 @@ class DropboxModel {
         }
     }
     
-    func uploadLocations(updateProgress: @escaping (_ all: Int, _ uploaded: Int) -> Void) {
+    func uploadLocations(updateProgress: @escaping (_ all: Int, _ uploaded: Int, _ results: [File]) -> Void) {
         let timestampSort = NSSortDescriptor(key:"timestamp", ascending:true)
         let fetchRequest = Location.fetchRequest() as NSFetchRequest<Location>
         fetchRequest.sortDescriptors = [timestampSort]
@@ -60,7 +56,7 @@ class DropboxModel {
             var lastDate = ""
             var currentCsv = ""
             let fields = ["date", "timestamp", "longitude", "latitude", "altitude", "floor", "horizontalAccuracy", "verticalAccuracy"]
-            var results: [Bool] = []
+            var results: [File] = []
             var delay = 0.0
         
             locations.forEach({ location in
@@ -68,16 +64,17 @@ class DropboxModel {
                     return
                 }
                 if (lastDate != thisDate) {
-                    total += 1
                     if (!currentCsv.isEmpty) {
+                        total += 1
+                        let dateToUpload = lastDate
                         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                            self.storeDay(csv: currentCsv, date: lastDate) { result in
-                                results.append(result)
+                            self.storeDay(csv: currentCsv, date: dateToUpload) { result in
+                                results.append(File(status: result, path: dateToUpload))
                                 uploaded += 1
-                                updateProgress(total, uploaded)
+                                updateProgress(total, uploaded, results)
                             }
                         }
-                        delay += 1
+                        delay += 0.5
                     }
                     lastDate = thisDate
                     currentCsv = fields.joined(separator: ";")
@@ -99,12 +96,12 @@ class DropboxModel {
         do {
             let backgroundContext = PersistenceController.shared.container.newBackgroundContext()
             try backgroundContext.execute(asyncFetch)
-        } catch _ {
-          // handle error
+        } catch let error {
+            print("Error!!", error)
         }
     }
     
-    func storeDay(csv: String, date: String, completionHandler: @escaping (Bool) -> Void) {
+    func storeDay(csv: String, date: String, completionHandler: @escaping (FileStatus) -> Void) {
         let fileData = csv.data(using: String.Encoding.utf8, allowLossyConversion: false)!
         
         guard let client = DropboxClientsManager.authorizedClient else {
@@ -112,14 +109,37 @@ class DropboxModel {
             return
         }
 
-        client.files.upload(path: "/data/locations/location-tracker/\(date).csv", input: fileData)
+        client.files.upload(path: "/data/locations/location-tracker/\(date).csv", mode: Files.WriteMode.overwrite, autorename: false, clientModified: nil, mute: true, propertyGroups: nil, strictConflict: false, input: fileData)
             .response { response, error in
                 if let response = response {
-                    completionHandler(true)
+                    completionHandler(FileStatus.success)
                     print(response)
-                } else if let error = error {
-                    completionHandler(false)
-                    print(error)
+                } else if let error: CallError<Files.UploadError> = error {
+                    switch error {
+                        case let .routeError(_, _, summary, _):
+                        guard let summaryText = summary else {
+                            completionHandler(.unhandledError("routeError"))
+                            return
+                        }
+                        if (summaryText.contains("conflict")) {
+                            completionHandler(.conflict)
+                        }
+                        case .internalServerError(_, _, _):
+                            completionHandler(.unhandledError("internalServerError"))
+                        case .badInputError(_, _):
+                            completionHandler(.unhandledError("badInputError"))
+                        case .rateLimitError(_, _, _, _):
+                            completionHandler(.unhandledError("rateLimitError"))
+                        case .httpError(_, _, _):
+                            completionHandler(.unhandledError("httpError"))
+                        case .authError(_, _, _, _):
+                            completionHandler(.unhandledError("authError"))
+                        case .accessError(_, _, _, _):
+                            completionHandler(.unhandledError("accessError"))
+                        case .clientError(_):
+                            completionHandler(.unhandledError("clientError"))
+                    }
+                    
                 }
             }
             .progress { progressData in
@@ -127,4 +147,32 @@ class DropboxModel {
             }
     }
     
+}
+
+struct File: Identifiable {
+    var id: String {
+        path
+    }
+    
+    let status: FileStatus
+    let path: String
+}
+
+enum FileStatus: CustomStringConvertible {
+    case success
+    case conflict
+    case unhandledError(String)
+    
+    var description: String {
+        get {
+          switch self {
+            case .success:
+              return "✅"
+            case .conflict:
+              return "conflict"
+          case .unhandledError(let error):
+              return error
+          }
+        }
+      }
 }

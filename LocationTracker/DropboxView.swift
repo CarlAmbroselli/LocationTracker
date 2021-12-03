@@ -14,67 +14,85 @@ struct DropboxView : View {
     
     var body : some View {
         VStack {
-            Text(viewModel.authenticationStatus)
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(viewModel.isAuthenticated ? .green : .orange)
-            Spacer()
-            DropboxViewController(isShown: $viewModel.showAuthenticateDropbox, viewModel: viewModel)
-            if (viewModel.isAuthenticated) {
-                
-                Text(viewModel.syncStatus)
-                
-                Spacer().frame(height: 50)
-                
-                HStack {
-                    Spacer()
-                
-                    Button(action: {
-                        viewModel.uploadLocations()
-                    }) {
-                        HStack {
-                            Image(systemName: "arrow.triangle.2.circlepath")
-                            Text("Sync Locations")
-                        }
-                        .padding()
-                        .foregroundColor(.white)
-                        .background(Color.blue)
-                        .cornerRadius(10)
-                    }
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        viewModel.uploadLocations()
-                    }) {
-                        HStack {
-                            Image(systemName: "lock")
-                            Text("Logout Dropbox")
-                        }
-                        .padding()
-                        .foregroundColor(.white)
-                        .background(Color.gray)
-                        .cornerRadius(10)
-                    }
-                    
-                    Spacer()
-                }
+            AuthenticationStatusView(authenticationStatus: viewModel.authenticationStatus, isAuthenticated: viewModel.isAuthenticated)
+            if (viewModel.isAuthenticated == false) {
+                ButtonView(action: viewModel.loginButtonPressed, icon: nil, text: "Login to Dropbox")
+                    .padding(50)
             }
-            Spacer()
+            if (viewModel.isAuthenticated ?? false) {
+                List {
+                    VStack {
+                        ProgressBarButton(value: $viewModel.syncStatus, tapAction: viewModel.uploadLocations, icon: "arrow.triangle.2.circlepath", text: "Sync Locations").frame(height: 50)
+                    }
+                    .listRowSeparator(.hidden)
+                    ForEach(viewModel.files.sorted(by: { $0.path > $1.path })) { file in
+                        HStack {
+                            Text("\(file.path)")
+                            Spacer()
+                            Text("\(String(describing: file.status))")
+                        }
+                    }
+                }
+                .listStyle(PlainListStyle())
+            } else {
+                Spacer()
+            }
+            if (viewModel.showAuthenticateDropbox) {
+                DropboxViewController(isShown: $viewModel.showAuthenticateDropbox, viewModel: viewModel)
+            }
+            
         }
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarItems(trailing: ((viewModel.isAuthenticated ?? false) ? Button(action: viewModel.logout, label: {
+            Text("Logout")
+        }) : nil))
         .onAppear() {
-            if DropboxClientsManager.authorizedClient == nil {
-                viewModel.showAuthenticateDropbox = true
-            } else {
-                try? viewModel.updateDropboxState()
-            }
+            try? viewModel.updateDropboxState()
         }
         .onOpenURL { url in
             DropboxClientsManager.handleRedirectURL(url, completion: { result in
                 try? viewModel.updateDropboxState()
             })
+        }
+    }
+}
+
+struct AuthenticationStatusView: View {
+    
+    let authenticationStatus: String
+    let isAuthenticated: Bool?
+    
+    var body: some View {
+        Text(authenticationStatus)
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background((isAuthenticated ?? false) ? .green : .orange)
+    }
+}
+
+struct ButtonView: View {
+    let action: () -> Void
+    let icon: String?
+    let text: String
+    
+    var body: some View {
+    
+        Button(action: {
+            action()
+        }) {
+            HStack {
+                Spacer()
+                if (icon != nil ) {
+                    Image(systemName: icon!)
+                }
+                Text(text)
+                Spacer()
+            }
+            .padding()
+            .foregroundColor(.white)
+            .background(Color.blue)
+            .cornerRadius(10)
         }
     }
 }
@@ -95,6 +113,11 @@ struct DropboxViewController: UIViewControllerRepresentable {
         return UIViewController()
     }
 }
+
+
+
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

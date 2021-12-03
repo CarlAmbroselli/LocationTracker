@@ -8,16 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		766F20022653AE6900B89928 /* LocationTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766F20012653AE6900B89928 /* LocationTrackerApp.swift */; };
-		766F20042653AE6900B89928 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766F20032653AE6900B89928 /* ContentView.swift */; };
+		766F20042653AE6900B89928 /* MapContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766F20032653AE6900B89928 /* MapContentView.swift */; };
 		766F20062653AE6A00B89928 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 766F20052653AE6A00B89928 /* Assets.xcassets */; };
 		766F20092653AE6A00B89928 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 766F20082653AE6A00B89928 /* Preview Assets.xcassets */; };
 		766F200B2653AE6A00B89928 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766F200A2653AE6A00B89928 /* PersistenceController.swift */; };
 		766F200E2653AE6A00B89928 /* LocationTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 766F200C2653AE6A00B89928 /* LocationTracker.xcdatamodeld */; };
 		766F20172653AEAC00B89928 /* LocationPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766F20162653AEAC00B89928 /* LocationPublisher.swift */; };
 		766F20222653C61D00B89928 /* CLLocationCoordinate2D+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766F20212653C61D00B89928 /* CLLocationCoordinate2D+Equatable.swift */; };
+		C36811092759F7FE00D2C78C /* ProgressBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36811082759F7FE00D2C78C /* ProgressBarButton.swift */; };
 		C39452AC273D756400697F84 /* StorylineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452AB273D756400697F84 /* StorylineView.swift */; };
-		C39452AF273D76F800697F84 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452AE273D76F800697F84 /* Story.swift */; };
-		C39452B1273D791A00697F84 /* StoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452B0273D791A00697F84 /* StoryRow.swift */; };
 		C39452BA273E4EF000697F84 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452B9273E4EF000697F84 /* MapView.swift */; };
 		C39452C72746A54B00697F84 /* SwiftyDropbox in Frameworks */ = {isa = PBXBuildFile; productRef = C39452C62746A54B00697F84 /* SwiftyDropbox */; };
 		C39452CB2746AAE200697F84 /* DropboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39452CA2746AAE200697F84 /* DropboxView.swift */; };
@@ -29,7 +28,7 @@
 /* Begin PBXFileReference section */
 		766F1FFE2653AE6900B89928 /* LocationTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocationTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		766F20012653AE6900B89928 /* LocationTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTrackerApp.swift; sourceTree = "<group>"; };
-		766F20032653AE6900B89928 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		766F20032653AE6900B89928 /* MapContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapContentView.swift; sourceTree = "<group>"; };
 		766F20052653AE6A00B89928 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		766F20082653AE6A00B89928 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		766F200A2653AE6A00B89928 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
@@ -37,9 +36,8 @@
 		766F200F2653AE6A00B89928 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		766F20162653AEAC00B89928 /* LocationPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPublisher.swift; sourceTree = "<group>"; };
 		766F20212653C61D00B89928 /* CLLocationCoordinate2D+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Equatable.swift"; sourceTree = "<group>"; };
+		C36811082759F7FE00D2C78C /* ProgressBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarButton.swift; sourceTree = "<group>"; };
 		C39452AB273D756400697F84 /* StorylineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorylineView.swift; sourceTree = "<group>"; };
-		C39452AE273D76F800697F84 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
-		C39452B0273D791A00697F84 /* StoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryRow.swift; sourceTree = "<group>"; };
 		C39452B9273E4EF000697F84 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		C39452CA2746AAE200697F84 /* DropboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxView.swift; sourceTree = "<group>"; };
 		C39452D82746BEAB00697F84 /* DropboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxViewModel.swift; sourceTree = "<group>"; };
@@ -82,16 +80,13 @@
 				C39452AD273D76DD00697F84 /* Model */,
 				766F20012653AE6900B89928 /* LocationTrackerApp.swift */,
 				C3A958302748DD52004BCDEA /* ViewModel.swift */,
-				766F20032653AE6900B89928 /* ContentView.swift */,
 				C39452AB273D756400697F84 /* StorylineView.swift */,
+				766F20032653AE6900B89928 /* MapContentView.swift */,
 				C39452CA2746AAE200697F84 /* DropboxView.swift */,
-				766F20162653AEAC00B89928 /* LocationPublisher.swift */,
-				766F200A2653AE6A00B89928 /* PersistenceController.swift */,
 				766F200F2653AE6A00B89928 /* Info.plist */,
 				766F200C2653AE6A00B89928 /* LocationTracker.xcdatamodeld */,
 				766F20052653AE6A00B89928 /* Assets.xcassets */,
 				766F20072653AE6A00B89928 /* Preview Content */,
-				766F20212653C61D00B89928 /* CLLocationCoordinate2D+Equatable.swift */,
 			);
 			path = LocationTracker;
 			sourceTree = "<group>";
@@ -107,8 +102,8 @@
 		C39452AD273D76DD00697F84 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C39452AE273D76F800697F84 /* Story.swift */,
-				C39452B0273D791A00697F84 /* StoryRow.swift */,
+				766F200A2653AE6A00B89928 /* PersistenceController.swift */,
+				766F20162653AEAC00B89928 /* LocationPublisher.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -116,9 +111,11 @@
 		C39452B8273E4ED700697F84 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				766F20212653C61D00B89928 /* CLLocationCoordinate2D+Equatable.swift */,
 				C39452DA274828A100697F84 /* DropboxModel.swift */,
 				C39452D82746BEAB00697F84 /* DropboxViewModel.swift */,
 				C39452B9273E4EF000697F84 /* MapView.swift */,
+				C36811082759F7FE00D2C78C /* ProgressBarButton.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -201,17 +198,16 @@
 				766F200B2653AE6A00B89928 /* PersistenceController.swift in Sources */,
 				766F200E2653AE6A00B89928 /* LocationTracker.xcdatamodeld in Sources */,
 				C39452AC273D756400697F84 /* StorylineView.swift in Sources */,
-				766F20042653AE6900B89928 /* ContentView.swift in Sources */,
+				766F20042653AE6900B89928 /* MapContentView.swift in Sources */,
 				766F20022653AE6900B89928 /* LocationTrackerApp.swift in Sources */,
 				C39452CB2746AAE200697F84 /* DropboxView.swift in Sources */,
 				C3A958312748DD52004BCDEA /* ViewModel.swift in Sources */,
 				766F20222653C61D00B89928 /* CLLocationCoordinate2D+Equatable.swift in Sources */,
 				C39452DB274828A100697F84 /* DropboxModel.swift in Sources */,
 				C39452D92746BEAB00697F84 /* DropboxViewModel.swift in Sources */,
+				C36811092759F7FE00D2C78C /* ProgressBarButton.swift in Sources */,
 				766F20172653AEAC00B89928 /* LocationPublisher.swift in Sources */,
 				C39452BA273E4EF000697F84 /* MapView.swift in Sources */,
-				C39452B1273D791A00697F84 /* StoryRow.swift in Sources */,
-				C39452AF273D76F800697F84 /* Story.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

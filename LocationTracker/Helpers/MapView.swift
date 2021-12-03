@@ -10,7 +10,6 @@ import MapKit
 
 struct MapView: UIViewRepresentable {
     
-    let region: MKCoordinateRegion
     let lineCoordinates: [CLLocationCoordinate2D]
     
     func makeUIView(context: Context) -> MKMapView {

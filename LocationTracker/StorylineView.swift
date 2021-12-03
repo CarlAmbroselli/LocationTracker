@@ -21,7 +21,7 @@ struct StorylineView: View {
             List {
                 ForEach(locations) { entry in
                     NavigationLink {
-                        ContentView(locations: entry)
+                        MapContentView(locations: entry)
                     } label: {
                         Text(entry.id)
                     }
