@@ -68,9 +68,11 @@ class DropboxViewModel: ObservableObject {
     }
     
     func uploadLocations() {
-        dropboxModel.uploadLocations() { total, uploaded, results in
-            self.files = results
-            self.syncStatus = Double(uploaded) / Double(total)
+        dropboxModel.getUploadedFiles { uploadedFiles in
+            self.dropboxModel.uploadLocations(alreadyUploadedFiles: uploadedFiles) { total, uploaded, results in
+                self.files = results
+                self.syncStatus = Double(uploaded) / Double(total)
+            }
         }
     }
 }

@@ -18,6 +18,7 @@ class DropboxModel {
     }()
     
     var state: String = "Uninitialized"
+    let rootFolderPath = "/data/locations/location-tracker"
     
     func updateDropboxState(resultHandler: @escaping (Bool, String) -> Void) {
         print("updateDropboxState")
@@ -35,7 +36,53 @@ class DropboxModel {
         }
     }
     
-    func uploadLocations(updateProgress: @escaping (_ all: Int, _ uploaded: Int, _ results: [File]) -> Void) {
+    func getUploadedFiles(resultHandler: @escaping (Set<String>) -> Void) {
+        guard let client = DropboxClientsManager.authorizedClient else {
+            print("failed to init client!")
+            return
+        }
+        client.files.listFolder(path: rootFolderPath).response { response, error in
+            var files = Set<String>()
+            if let result = response {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                for entry in result.entries {
+                    if let file = entry as? Files.FileMetadata {
+                        let filename = file.name.replacingOccurrences(of: ".csv", with: "")
+                        guard let dateFromFilename = dateFormatter.date(from: filename) else {
+                            continue
+                        }
+                        guard let dateAfterWhichUploadIsTrusted = Calendar.current.date(byAdding: .day, value: 2, to: dateFromFilename) else {
+                            continue
+                        }
+                        if (dateAfterWhichUploadIsTrusted < file.serverModified) {
+                            files.insert(filename)
+                        }
+                    } else if let folder = entry as? Files.FolderMetadata {
+                        print("\tFound unexpected folder with path: \(String(describing: folder.pathLower))")
+                    }
+                }
+                resultHandler(files)
+            } else if let callError = error {
+                switch callError {
+                    case .routeError(let boxed, _, _, _):
+                        switch boxed.unboxed {
+                            case .path(let lookupError):
+                                print("lookupError:")
+                                print(lookupError)
+                            case .other:
+                                print("Other")
+                            case .templateError(_):
+                                print("TemplateError")
+                        }
+                    default:
+                        print("default")
+                }
+            }
+        }
+    }
+    
+    func uploadLocations(alreadyUploadedFiles: Set<String>, updateProgress: @escaping (_ all: Int, _ uploaded: Int, _ results: [File]) -> Void) {
         let timestampSort = NSSortDescriptor(key:"timestamp", ascending:true)
         let fetchRequest = Location.fetchRequest() as NSFetchRequest<Location>
         fetchRequest.sortDescriptors = [timestampSort]
@@ -43,6 +90,12 @@ class DropboxModel {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        var results: [File] = []
+        
+        alreadyUploadedFiles.forEach { file in
+            results.append(File(status: FileStatus.alreadySynced, path: file))
+        }
+        updateProgress(100, 1, results)
         
         let asyncFetch = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { result in
 
@@ -56,11 +109,13 @@ class DropboxModel {
             var lastDate = ""
             var currentCsv = ""
             let fields = ["date", "timestamp", "longitude", "latitude", "altitude", "floor", "horizontalAccuracy", "verticalAccuracy"]
-            var results: [File] = []
             var delay = 0.0
         
             locations.forEach({ location in
                 guard let thisDate = location.date else {
+                    return
+                }
+                if (alreadyUploadedFiles.contains(thisDate)) {
                     return
                 }
                 if (lastDate != thisDate) {
@@ -110,7 +165,7 @@ class DropboxModel {
             return
         }
 
-        client.files.upload(path: "/data/locations/location-tracker/\(date).csv", mode: Files.WriteMode.overwrite, autorename: false, clientModified: nil, mute: true, propertyGroups: nil, strictConflict: false, input: fileData)
+        client.files.upload(path: "\(rootFolderPath)/\(date).csv", mode: Files.WriteMode.overwrite, autorename: false, clientModified: nil, mute: true, propertyGroups: nil, strictConflict: false, input: fileData)
             .response { response, error in
                 if let response = response {
                     completionHandler(FileStatus.success)
@@ -145,6 +200,7 @@ class DropboxModel {
             }
             .progress { progressData in
                 print(progressData)
+                // TODO: Handle incremental progress
             }
     }
     
@@ -160,6 +216,7 @@ struct File: Identifiable {
 }
 
 enum FileStatus: CustomStringConvertible {
+    case alreadySynced
     case success
     case conflict
     case unhandledError(String)
@@ -167,6 +224,8 @@ enum FileStatus: CustomStringConvertible {
     var description: String {
         get {
           switch self {
+          case .alreadySynced:
+              return "already synced"
             case .success:
               return "✅"
             case .conflict:
