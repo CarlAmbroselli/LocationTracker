@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
+        "state": {
+          "branch": null,
+          "revision": "d120af1e8638c7da36c8481fd61a66c0c08dc4fc",
+          "version": "5.4.4"
+        }
+      },
+      {
+        "package": "SwiftyDropbox",
+        "repositoryURL": "https://github.com/dropbox/SwiftyDropbox.git",
+        "state": {
+          "branch": "master",
+          "revision": "d67e3cb255a7a71c59b5dc5d550bf6e2a0ebf5ca",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
